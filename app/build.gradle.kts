@@ -1,7 +1,15 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    id("kotlin-kapt")
+
+    // for hilt
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
+
 }
+
 
 android {
     namespace = "com.example.noteappcompose"
@@ -10,6 +18,7 @@ android {
     defaultConfig {
         applicationId = "com.example.noteappcompose"
         minSdk = 26
+//        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -49,6 +58,13 @@ android {
     }
 }
 
+
+
+// for hilt
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -69,4 +85,21 @@ dependencies {
 
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+
+    // hilt dependency injection
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+
+    // Room
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    // coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 }

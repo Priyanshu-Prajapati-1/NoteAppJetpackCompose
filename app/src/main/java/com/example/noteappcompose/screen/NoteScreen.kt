@@ -37,6 +37,7 @@ import com.example.noteappcompose.components.NoteButton
 import com.example.noteappcompose.components.NoteInputText
 import com.example.noteappcompose.data.NotesDataSource
 import com.example.noteappcompose.model.Note
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +67,7 @@ fun NoteScreen(
             )
         },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.onBackground
+                containerColor = MaterialTheme.colorScheme.primary
             )
         )
         Column(
@@ -98,7 +99,7 @@ fun NoteScreen(
                     onAddNote(Note(title = title, description = description))
                     title = ""
                     description = ""
-                    Toast.makeText(context,"Note added", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Note added", Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -146,8 +147,11 @@ fun NoteRow(
                 text = note.description,
                 style = MaterialTheme.typography.bodyLarge
             )
+
+            val dateTimeFormatter = DateTimeFormatter.ofPattern("EEE, d MMM")
+            val formattedDate = LocalDateTime.now().format(dateTimeFormatter)
             Text(
-                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
+                text = formattedDate,
                 style = MaterialTheme.typography.bodyMedium
             )
 
